@@ -1,6 +1,16 @@
 <div *ngIf="this.rId!=null;then trueRid else falseRid "></div>
 
 <ng-template #trueRid>
+  <ion-header>
+    <ion-title>자음게임</ion-title>
+    <ion-title class="qBox">
+      <p>ㄱ</p>
+      <p>ㄱ</p>
+      <p>ㄱ</p>
+      <p>ㄱ</p>
+    </ion-title>
+    <small>힌트 - 영화</small>
+  </ion-header>
   <ion-content scrollDownOnLoad="true">
     <div class="messageBox" *ngFor="let message of messages;">
       <ion-item lines="none" *ngIf="!message.isMe">
@@ -9,7 +19,7 @@
         </ion-thumbnail>
         <ion-label>
           <h3>{{message.name}}</h3>
-          <div class="left">{{message.text}}</div>          
+          <div class="left">{{message.text}}</div>
           <small>{{message.createdAt| date:"HH:mm"}}</small>
         </ion-label>
       </ion-item>
@@ -20,12 +30,11 @@
         <ion-label>
           <h3>{{message.name}}</h3>
           <small>{{message.createdAt| date:"HH:mm"}}</small>
-          <div class="right">{{message.text}}</div>   
+          <div class="right">{{message.text}}</div>
         </ion-label>
       </ion-item>
     </div>
   </ion-content>
-
   <ion-footer class="bar-frosted">
     <ion-item>
       <ion-input [(ngModel)]="inputMessage" placeholder="" (keyup.enter)="sendChat()"></ion-input>
