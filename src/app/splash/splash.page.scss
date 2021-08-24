@@ -1,0 +1,39 @@
+ion-content {
+    font-family: "gamja flower", "gamja flower", sans-serif;
+    --background: rgb(0, 0, 0);
+
+    div {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        text-align: center;
+        font-size: 5rem;
+        color: #fff;
+
+        span {
+            font-size: 1rem;
+        }
+    }
+}
+
+.text {
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #000, #fff, #000);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    animation: shine 4s linear infinite;
+    position: relative;
+  }
+  
+  @keyframes shine {
+    0% {
+      background-position-x: -200%;
+    }
+    100% {
+      background-position-x: 600%;
+    }
+  }

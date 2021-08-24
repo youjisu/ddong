@@ -1,0 +1,49 @@
+* {
+    font-family: "gamja flower", "gamja flower", sans-serif !important;
+}
+
+:host {
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 0 10px #ccc;
+}
+ion-title {
+    text-align: center;
+}
+ion-content {
+    --background: #faf0e4;
+}
+
+.messageBox {
+    ion-item {
+        margin: 5px 0;
+        --background: rgba(255, 255, 255, 0);
+        &.me {
+            text-align: right;
+        }
+        ion-thumbnail {
+            margin: 0 5px 0 0;
+        }
+        ion-label {
+            margin: 0;
+            h3 {
+                margin-bottom: 5px;
+            }
+            div {
+                display: inline-block;
+                background: #fff;
+                padding: 5px 10px;
+
+                &.left {
+                    border-radius: 0 10px 10px 10px;
+                }
+                &.right {
+                    border-radius: 10px 0 10px 10px;
+                }
+            }
+            small {
+                margin: 0 10px;
+            }
+        }
+    }
+}

@@ -6,6 +6,27 @@ export const environment = {
   production: false
 };
 
+export const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDPkO71TbvKOZliRA9qk93BXRR4fIWX5I4",
+  authDomain: "ddong-b30bf.firebaseapp.com",
+  databaseURL: "https://ddong-b30bf-default-rtdb.firebaseio.com",
+  projectId: "ddong-b30bf",
+  storageBucket: "ddong-b30bf.appspot.com",
+  messagingSenderId: "728551012246",
+  appId: "1:728551012246:web:8a64d7f826056f98760fb7",
+  measurementId: "G-LFHTF05MPQ"
+};
+
+export const snapshotToArray = snapshot => {
+  let returnArray = []
+  snapshot.forEach(element => {
+      let item = element.val()
+      item.key = element.key
+      returnArray.push(item)
+  });
+  return returnArray
+}
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
