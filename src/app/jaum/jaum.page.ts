@@ -15,8 +15,10 @@ export class JaumPage implements OnInit {
   public rId = null;
   public messages = new Array();
   public inputMessage = '';
+  public qMessage = 'zzzz';
 
   @ViewChild(IonContent, { read: IonContent, static: false }) myContent: IonContent;
+  @ViewChild('chatInput', { static: false }) chatInput: { setFocus: () => void; };
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,15 +39,21 @@ export class JaumPage implements OnInit {
   ngOnInit() {
   }
 
+  setFocusOnInput() {
+    this.chatInput.setFocus();
+  }
+
   sendChat() {
-    if(this.inputMessage.length > 0)
+    if (this.inputMessage.length > 0)
       this.db.ref('rooms/' + this.rId + '/messages/').push({
         text: this.inputMessage,
         uId: localStorage.uId,
         createdAt: Date.now()
       });
 
+    this.qMessage = this.inputMessage;
     this.inputMessage = '';
+    this.setFocusOnInput();
   }
 
   makeRoom(value, size) {

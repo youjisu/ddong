@@ -2,14 +2,14 @@
 
 <ng-template #trueRid>
   <ion-header>
-    <ion-title>자음게임</ion-title>
-    <ion-title class="qBox">
-      <p>ㄱ</p>
-      <p>ㄱ</p>
-      <p>ㄱ</p>
-      <p>ㄱ</p>
-    </ion-title>
-    <small>힌트 - 영화</small>
+    <ion-toolbar>
+      <div class="title"></div>
+      <div class="subTitle"></div>
+      <ion-title class="qBox" #qBox>
+        <p>{{qMessage}}</p>    
+      </ion-title>
+      <small>힌트 - 영화</small>
+    </ion-toolbar>
   </ion-header>
   <ion-content scrollDownOnLoad="true">
     <div class="messageBox" *ngFor="let message of messages;">
@@ -37,8 +37,11 @@
   </ion-content>
   <ion-footer class="bar-frosted">
     <ion-item>
-      <ion-input [(ngModel)]="inputMessage" placeholder="" (keyup.enter)="sendChat()"></ion-input>
+      <ion-input [(ngModel)]="inputMessage" placeholder="" (keyup.enter)="sendChat()" #chatInput></ion-input>
       <ion-button item-right color="primary" (click)="sendChat()">Send</ion-button>
+    </ion-item>
+    <ion-item>
+      광고가 들어갈 거에요 ~.~
     </ion-item>
   </ion-footer>
 </ng-template>
