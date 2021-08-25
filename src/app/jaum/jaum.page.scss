@@ -12,7 +12,7 @@ ion-header {
         --background: #fff;
     }
     ion-title {
-        margin: 5px;
+        margin: 5px 0;
         text-align: center;
     }
     .title {
@@ -61,10 +61,11 @@ ion-content {
                 margin: 0 5px 0 0;
                 img {
                     position: absolute;
-                    top: 0;
+                    top: 2px;
                     width: 50px;
                     height: 50px;
                     border-radius: 25px;
+                    box-shadow: 2px 2px 3px #999;
                 }
             }
             ion-label {
