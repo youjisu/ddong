@@ -31,24 +31,6 @@ export class AppComponent {
       if (user) {
         localStorage.setItem('uId', user.uid);
         console.log('uid-' + user.uid);
-
-        this.activatedRoute.queryParams.subscribe(params => {
-          localStorage.setItem('rId', params['rId']);
-          (async () => {
-            if (params['rId'] != null || params['rId'] != undefined) {
-              if ((await firebase.default.database().ref('rooms/' + params['rId']).once('value')).val() != null) {
-                firebase.default.database().ref('rooms/' + params['rId'] + '/users/' + localStorage.uId).set(true);
-                firebase.default.database().ref('rooms/' + params['rId'] + '/users/' + localStorage.uId).onDisconnect().set(false);
-              }
-              else {
-                localStorage.setItem('rId', null);
-              }
-            }
-            else {
-              localStorage.setItem('rId', null);
-            }
-          })();
-        });
       } else { }
     });
   }

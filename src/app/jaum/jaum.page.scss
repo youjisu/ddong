@@ -7,9 +7,29 @@
     margin: auto;
     box-shadow: 0 0 10px #999;
 }
+.splashBox{    
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    background: url('../../assets/images/jaum_background.png');
+    visibility: hidden;
+    animation: fadeOut 3s ease;
+    div{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        text-align: center;
+        font-size: 5rem;
+        color: #fff;
+    }
+}
 ion-header {
     ion-toolbar {
         --background: #fff;
+        height: 60px;
+        color: #000;
     }
     ion-title {
         margin: 5px 0;
@@ -45,15 +65,50 @@ ion-header {
             background: #fff;
         }
     }
+    .peopleCnt {
+        position: absolute;
+        bottom: -40px;
+        left: 5px;
+        font-size: 15px;
+        color: #333;
+        background: #fff;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 0 0 4px #999;
+        ion-icon {
+            display: inline-block;
+            font-size: 20px;
+            margin-bottom: 1px;
+            vertical-align: middle;
+        }
+    }
 }
 ion-content {
-    --background: #d1dfe8;
+    --background: url('../../assets/images/jaum_background.png');
+    .messageBoxBackground{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.77);
+    }
     .messageBox {
         ion-item {
             color: #000;
             margin: 5px 0;
-            --padding: 5px;
-            --background: rgba(255, 255, 255, 0);
+            --padding-start: 5px;
+            --inner-padding-end: 5px;
+            --background: rgba(43, 28, 28, 0);
+            &.guideChat {
+                text-align: center;
+                div {
+                    background: #555 !important;
+                    width: 100%;
+                    color: #fff;
+                    margin-top: 3px;
+                }
+            }
             &.me {
                 text-align: right;
             }
@@ -75,9 +130,11 @@ ion-content {
                     margin-bottom: 5px;
                 }
                 div {
+                    position: relative;
                     display: inline-block;
                     background: #fff;
                     padding: 5px 10px;
+                    box-shadow: inset 0 0 2px #555;
 
                     &.left {
                         border-radius: 0 10px 10px 10px;
@@ -85,11 +142,84 @@ ion-content {
                     &.right {
                         border-radius: 10px 0 10px 10px;
                     }
+                    &.center {
+                        border-radius: 10px;
+                    }
                 }
                 small {
                     margin: 0 10px;
                 }
             }
         }
+    }
+}
+ion-footer {
+    div {
+        position: absolute;
+        top: -50px;
+        left: 5px;
+    }
+    ion-item {
+        --padding-start: 5px;
+        --background: #fff;
+        color: #000;
+        ion-icon {
+            color: #000;
+            margin-right: 10px;
+        }
+    }
+}
+
+.guideBtn {
+    width: 100%;
+    --background: #555;
+    --color: #fff;
+}
+.rMsg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    animation: up 2s ease-out;
+
+    &.incorrect {
+        color: #f00;
+    }
+    &.correct {
+        color: #0c0;
+    }
+}
+@keyframes up {
+    from {
+        top: 0;
+        opacity: 1;
+    }
+    to {
+        top: -25px;
+        opacity: 0;
+    }
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fadeOut {
+    0% {
+    }
+    70% {
+        visibility: visible;
+        opacity: 1;
+    }
+    100% {
+        visibility: hidden;
+        opacity: 0;
     }
 }
