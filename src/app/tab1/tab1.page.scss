@@ -3,6 +3,10 @@
 * {
     font-family: "gamja flower", "gamja flower", sans-serif;
 }
+ion-content{
+    --background: auto;
+}
+
 :host ::ng-deep .card-container {
     
     &.primary-box {
