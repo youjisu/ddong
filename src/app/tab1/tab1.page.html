@@ -1,21 +1,22 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large"></ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div class="card-container p-d-flex">
+    <p-divider align="left" type="dashed"> <b>최근 사용</b> </p-divider>
 
-  <div>
-    <ion-button [routerLink]="['/jaum']">jaum</ion-button>
+    <p-button styleClass="p-px-3" [routerLink]="['/jaum']">
+      <ng-template pTemplate="content">
+        <img alt="logo" src="assets/showcase/images/primeng-icon-white.svg" style="width: 1.5rem" />
+      </ng-template>
+    </p-button>
+
+    <p-divider align="left" type="dashed"> <b>내 바로가기</b> </p-divider>
   </div>
+  <div>
+  </div>
+
 </ion-content>

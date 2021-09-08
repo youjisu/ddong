@@ -1,8 +1,9 @@
-import { collectExternalReferences } from '@angular/compiler';
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
+
+import { Component } from '@angular/core';
 import { FIREBASE_CONFIG } from '../environments/environment'
+
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ import { FIREBASE_CONFIG } from '../environments/environment'
 export class AppComponent {
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private primengConfig: PrimeNGConfig
   ) {
 
     this.initializeApp();
@@ -33,6 +34,8 @@ export class AppComponent {
         console.log('uid-' + user.uid);
       } else { }
     });
+
+    this.primengConfig.ripple = true;
   }
 
   initializeApp() {

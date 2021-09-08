@@ -1,11 +1,5 @@
-import { IonicModule } from '@ionic/angular';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Tab1Page } from './tab1.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { Tab1PageRoutingModule } from './tab1-routing.module';
+import { NgModule } from '@angular/core';
 
 import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
@@ -18,11 +12,6 @@ import {DockModule} from 'primeng/dock';
 
 @NgModule({
   imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    ExploreContainerComponentModule,
-    Tab1PageRoutingModule,
     RippleModule,
     ButtonModule,
     DividerModule,
@@ -32,6 +21,15 @@ import {DockModule} from 'primeng/dock';
     AvatarGroupModule,
     DockModule
   ],
-  declarations: [Tab1Page]
+  exports: [
+    RippleModule,
+    ButtonModule,
+    DividerModule,
+    CardModule,
+    FieldsetModule,
+    AvatarModule,
+    AvatarGroupModule,
+    DockModule
+  ],
 })
-export class Tab1PageModule { }
+export class PrimeNGModule { }
