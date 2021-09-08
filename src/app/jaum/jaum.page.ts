@@ -28,6 +28,8 @@ export class JaumPage implements OnInit {
   private qResult = null;
   private qSubject = null;
 
+  public audio = null;
+
   @ViewChild(IonContent, { read: IonContent, static: false }) myContent: IonContent;
   @ViewChild('chatInput', { static: false }) chatInput: { setFocus: () => void; };
 
@@ -87,8 +89,23 @@ export class JaumPage implements OnInit {
     });
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.delay();
+
+    window.addEventListener('visibilitychange', () => {
+      if (this.audio) {
+        this.audio.pause();
+        this.audio = null;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    // destroy audio here
+    if (this.audio) {
+      this.audio.pause();
+      this.audio = null;
+    }
   }
 
   delay() {
@@ -264,32 +281,32 @@ export class JaumPage implements OnInit {
 
   playAudio(type) {
     if (this.delayStart) {
-      const audio = new Audio();
-      audio.autoplay = true;
+      this.audio = new Audio();
+      this.audio.autoplay = true;
       switch (type) {
         case 'chat':
-          audio.src = '../../assets/sounds/chat.mp3';
+          this.audio.src = '../../assets/sounds/chat.mp3';
           break;
         case 'join':
-          audio.src = '../../assets/sounds/join.mp3';
+          this.audio.src = '../../assets/sounds/join.mp3';
           break;
         case 'success':
-          audio.src = '../../assets/sounds/success.mp3';
+          this.audio.src = '../../assets/sounds/success.mp3';
           break;
         case 'fail':
-          audio.src = '../../assets/sounds/fail.mp3';
+          this.audio.src = '../../assets/sounds/fail.mp3';
           break;
         case 'action':
-          audio.src = '../../assets/sounds/action.mp3';
+          this.audio.src = '../../assets/sounds/action.mp3';
           break;
         case 'background':
-          audio.src = '../../assets/sounds/background.mp3';
-          audio.volume = 0.3;
-          audio.loop = true;
+          this.audio.src = '../../assets/sounds/background.mp3';
+          this.audio.volume = 0.3;
+          this.audio.loop = true;
           break;
       }
-      audio.load();
-      audio.play();
+      this.audio.load();
+      this.audio.play();
     }
   }
 }

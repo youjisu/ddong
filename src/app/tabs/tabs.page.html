@@ -17,7 +17,7 @@
 <ion-tabs>
   <p-dock [model]="menus" position="bottom">
     <ng-template pTemplate="item" let-item>
-      <ion-tab-button tab="{{item.url}}" style="--ripple-color: transparent;">
+      <ion-tab-button tab="{{item.url}}" style="--ripple-color: transparent; width: 80px;">
         <img [src]="item.icon" [alt]="item.label" width="100%">
       </ion-tab-button>
     </ng-template>
