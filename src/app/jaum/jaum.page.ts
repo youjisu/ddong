@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonContent, ToastController } from '@ionic/angular';
 import * as firebase from 'firebase';
+import { MessageService } from 'primeng/api';
 import { Func } from '../../func';
 import { ApiHttpService } from '../api-http.service';
 
@@ -35,7 +36,7 @@ export class JaumPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private toastController: ToastController,
+    private messageService: MessageService,
     private router: Router,
     private http: ApiHttpService
   ) {
@@ -126,7 +127,7 @@ export class JaumPage implements OnInit {
         this.limitCnt = 0;
       }
       if (this.limitCnt > 10) {
-        this.toastBox('[경고] 도배로 인해 당분간 채팅이 금지됩니다.');
+        // this.toastBox('[경고] 도배로 인해 당분간 채팅이 금지됩니다.');
         this.inputMessage = '';
       }
       else {
@@ -259,15 +260,18 @@ export class JaumPage implements OnInit {
     this.setChat(msgData);
   }
 
-  async toastBox(value) {
-    const toast = await this.toastController.create({
-      color: 'dark',
-      position: 'middle',
-      message: value,
-      duration: 2000
-    });
-    toast.present();
+  addSingle() {
+    // this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Via MessageService' });
   }
+  // async toastBox(value) {
+  //   const toast = await this.toastController.create({
+  //     color: 'dark',
+  //     position: 'middle',
+  //     message: value,
+  //     duration: 2000
+  //   });
+  //   toast.present();
+  // }
 
   resetTitle() {
     setTimeout(() => {

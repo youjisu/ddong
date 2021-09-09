@@ -1,11 +1,67 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">두번째 탭</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div>
-    123123
+  <div class="storeBox">
+    <button pButton pRipple type="button" [routerLink]="['/tabs/tab1']" icon="pi pi-times"
+      class="p-button-rounded p-button-text p-button-plain exitBtn"></button>
+    <div class="title">
+      <i class="pi pi-spin pi-shopping-cart" style="font-size: 15px"></i>
+      &nbsp;똥폼 스토어
+    </div>
+    <div class="subTitle">게임</div>
+    <div class="itemBox">
+      <div class="item" pRipple>
+        <div class="header">
+          <p class="tag">
+            <p-tag value="#자음게임" severity="success" [rounded]="true"></p-tag>
+            <p-tag value="#모음게임" severity="success" [rounded]="true"></p-tag>
+            <p-tag value="#초성게임" severity="success" [rounded]="true"></p-tag>
+          </p>
+        </div>
+        <img class="logo" src="../../assets/images/jaum_app_icon.png" />
+        <p class="userCnt">
+          <p-tag icon="pi pi-user" value="1923"></p-tag>
+        </p>
+        <div class="content">
+          <h5>
+            ㅈㅇㄱㅇ<small>- 자음게임</small>
+          </h5>
+          <p class="info">
+            초성게임 자신있는 사람들 다 드루와~! <br>
+            ㅈㅁ~! ㅅㄸ ㄴㄹ~~!! ㄴ ㅇㄴ ㅈ ㅇㄷㅇㄱ~~!!~!<br>
+            주모~! 샷따 내려~~!! 나 오늘 집 안들어가~~!!~!
+          </p>
+        </div>
+        <div class="hideInfo"></div>
+      </div>
+      <div class="item" pRipple>
+        <div class="header">
+          <p class="tag">
+            <p-tag value="#숫자야구" severity="success" [rounded]="true"></p-tag>
+            <p-tag value="#두뇌게임" severity="success" [rounded]="true"></p-tag>
+          </p>
+        </div>
+        <img class="logo" src="../../assets/images/baseball_app_icon.png" />
+        <p class="userCnt">
+          <p-tag icon="pi pi-user" value="523"></p-tag>
+        </p>
+        <div class="content">
+          <h5>
+            숫자야구게임<small></small>
+          </h5>
+          <p class="info">
+            3S 0B .. 하나만 찾으면 이 게임은 나의 승리다!!<br>
+            - 근데.. 스트라이크가 3개인데.. 이미 끝난거 아닌가..?
+          </p>
+        </div>
+        <div class="hideInfo"></div>
+      </div>
+    </div>
+    <div class="subTitle">커뮤니케이션</div>
+    <div class="subTitle">유틸리티</div>
   </div>
 </ion-content>

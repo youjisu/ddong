@@ -5,18 +5,43 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="card-container p-d-flex">
-    <p-divider align="left" type="dashed"> <b>최근 사용</b> </p-divider>
+  <p-toast position="top-center"></p-toast>
 
+  <div class="container p-d-flex">
+    <p-divider align="left" type="dashed"> <b>최근 사용</b> </p-divider>
+<!-- 
     <p-button styleClass="p-px-3" [routerLink]="['/jaum']">
       <ng-template pTemplate="content">
-        <img alt="logo" src="assets/showcase/images/primeng-icon-white.svg" style="width: 1.5rem" />
+        <img alt="logo" src="../../assets/images/jaum_app_icon.png" style="width: 1.5rem" />
       </ng-template>
-    </p-button>
+    </p-button> -->
+    <div class="appItem" (click)="showSuccess()"> <!--[routerLink]="['/jaum']">-->
+      <img alt="logo" src="../../assets/images/jaum_app_icon.png"/>
+      <small>자음게임</small>
+    </div>
+
+    <div class="appItem" (click)="showSuccess()"> <!--[routerLink]="['/jaum']">-->
+      <img alt="logo" src="../../assets/images/baseball_app_icon.png"/>
+      <small>숫자야구</small>
+    </div>
+
+    <div class="appItem" (click)="showSuccess()"> <!--[routerLink]="['/jaum']">-->
+      <img alt="logo" src="../../assets/images/lier_app_icon.jpeg"/>
+      <small>라이어게임</small>
+    </div>
+
+    <div class="appItem" (click)="showSuccess()"> <!--[routerLink]="['/jaum']">-->
+      <img alt="logo" src="../../assets/images/lier_app_icon.jpeg"/>
+      <small>-</small>
+    </div>
+
+    <div class="appItem" (click)="showSuccess()"> <!--[routerLink]="['/jaum']">-->
+      <img alt="logo" src="../../assets/images/lier_app_icon.jpeg"/>
+      <small>-</small>
+    </div>
 
     <p-divider align="left" type="dashed"> <b>내 바로가기</b> </p-divider>
   </div>
   <div>
   </div>
-
 </ion-content>

@@ -8,7 +8,10 @@ import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
-import {DockModule} from 'primeng/dock';
+import { DockModule } from 'primeng/dock';
+import { ToastModule } from 'primeng/toast';
+import { BadgeModule } from 'primeng/badge';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   imports: [
@@ -19,7 +22,9 @@ import {DockModule} from 'primeng/dock';
     FieldsetModule,
     AvatarModule,
     AvatarGroupModule,
-    DockModule
+    DockModule,
+    ToastModule,
+    TagModule
   ],
   exports: [
     RippleModule,
@@ -29,7 +34,9 @@ import {DockModule} from 'primeng/dock';
     FieldsetModule,
     AvatarModule,
     AvatarGroupModule,
-    DockModule
+    DockModule,
+    ToastModule,
+    TagModule
   ],
 })
 export class PrimeNGModule { }

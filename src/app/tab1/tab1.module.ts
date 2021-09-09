@@ -14,7 +14,7 @@ import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
-import {DockModule} from 'primeng/dock';
+import { PrimeNGModule } from '../primeng.module';
 
 @NgModule({
   imports: [
@@ -30,7 +30,7 @@ import {DockModule} from 'primeng/dock';
     FieldsetModule,
     AvatarModule,
     AvatarGroupModule,
-    DockModule
+    PrimeNGModule
   ],
   declarations: [Tab1Page]
 })

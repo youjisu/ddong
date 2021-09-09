@@ -3,12 +3,44 @@
 * {
     font-family: "gamja flower", "gamja flower", sans-serif;
 }
-ion-content{
+ion-content {
     --background: auto;
 }
 
-:host ::ng-deep .card-container {
-    
+:host ::ng-deep .container {
+    padding: 10px;
+
+    .appItem {
+        position: relative;
+        display: inline-block;
+        width: 75px;
+        height: 75px;
+        border-radius: 15px;
+        margin: 10px;
+        box-shadow: 2px 2px 8px #222;
+        cursor: pointer;
+        img {
+            display: inline-block;
+            border-radius: inherit;
+            width: 100%;
+        }
+        small {
+            position: absolute;
+            bottom: 0;
+            margin: auto;
+            left: 0;
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            color: #fff;
+            border-radius: 0 0 15px 15px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+    }
+
     &.primary-box {
         background-color: var(--primary-color);
         padding: 0;
