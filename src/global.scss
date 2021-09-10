@@ -30,7 +30,12 @@
     src: url("./assets/fonts/GamjaFlower-Regular.ttf") format("truetype");
     font-weight: bold;
 }
-
+* {
+    font-family: "gamja flower", "gamja flower", sans-serif;
+}
+i {
+    font-family: "primeicons";
+}
 ion-router-outlet > .ion-page {
     animation: fadeIn 0.3s;    
 }

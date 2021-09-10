@@ -8,8 +8,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class TabsPage implements OnInit {
 
-  menus: any[] = [];
-  
+  menus: any[] = [];  
   constructor() {}
 
   ngOnInit() {

@@ -1,11 +1,5 @@
 :host {
 }
-* {
-    font-family: "gamja flower", "gamja flower", sans-serif;
-}
-i {
-    font-family: "primeicons";
-}
 
 ion-content {
     --background: auto;
@@ -37,12 +31,19 @@ ion-content {
         .itemBox {
             .item {
                 position: relative;
-                width: 100%;
-                padding: 10px 20px;
+                width: auto;
+                padding: 20px 10px 5px;
+                margin: 30px 20px;
+                box-shadow: 0 0 1px #444;
+                border-radius: 2px;
+                overflow: inherit;
                 cursor: pointer;
                 &:hover {
                 }
                 .header {
+                    position: absolute;
+                    top: -18px;
+                    left: -5px;
                     margin-bottom: 10px;
                     .tag {
                         margin: 5px;
@@ -55,20 +56,23 @@ ion-content {
                     width: 100px;
                     height: 100px;
                     border-radius: 25px;
-                    box-shadow: 2px 2px 5px #333;
+                    box-shadow: 0px 0px 2px #555;
                 }
                 .userCnt {
                     position: absolute;
-                    top: 0;
-                    right: 20px;
+                    top: 10px;
+                    right: 10px;
+                    margin: 0;
                     p-tag {
                         font-size: 10px;
                     }
                 }
                 .content {
                     position: absolute;
-                    top: 50px;
+                    top: 20px;
                     left: 135px;
+                    max-height: 100%;
+                    overflow: hidden;
                     h5 {
                         font-size: 25px;
                         margin: 0;
@@ -87,7 +91,7 @@ ion-content {
                     bottom: 0;
                     left: 0;
                     right: 0;
-                    height: 30px;
+                    height: 20px;
                     background: linear-gradient(
                         180deg,
                         rgba(255, 255, 255, 0) 0%,
@@ -109,7 +113,7 @@ ion-content {
     .itemBox {
         .item {
             .content {
-                left: 110px !important;
+                left: 100px !important;
             }
             .logo {
                 width: 75px !important;

@@ -1,4 +1,65 @@
+ion-router-outlet {
+    background: url("../assets/images/front_background.jpg") no-repeat center center / cover;
+}
+.splash {
+    z-index: 999;
+    background: #fff;
+    position: fixed;
+    width: 100%;
+    height: 100%;
 
-ion-router-outlet{
-    background: url('https://www.primefaces.org/primeng/showcase/window.f4a3dbec456b7222556f.jpg') no-repeat center center / cover;
+    p-progressSpinner {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        text-align: center;
+    }
+
+    &.fadeOut {
+        animation: fadeout 0.5s;
+        -moz-animation: fadeout 0.5s; /* Firefox */
+        -webkit-animation: fadeout 0.5s; /* Safari and Chrome */
+        -o-animation: fadeout 0.5s; /* Opera */
+        animation-fill-mode: forwards;
+    }
+}
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+@-moz-keyframes fadeout {
+    /* Firefox */
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+@-webkit-keyframes fadeout {
+    /* Safari and Chrome */
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+@-o-keyframes fadeout {
+    /* Opera */
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
 }

@@ -11,6 +11,7 @@ import { PrimeNGConfig } from 'primeng/api';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  loading: boolean = false;
 
   constructor(
     private primengConfig: PrimeNGConfig
@@ -39,7 +40,13 @@ export class AppComponent {
   }
 
   initializeApp() {
-
     firebase.default.initializeApp(FIREBASE_CONFIG);
   }
+
+  ngOnInit(){
+    setTimeout(() => {
+      this.loading = true;
+    }, 3000);
+  }
+  
 }

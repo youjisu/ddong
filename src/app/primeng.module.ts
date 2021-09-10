@@ -12,6 +12,7 @@ import { DockModule } from 'primeng/dock';
 import { ToastModule } from 'primeng/toast';
 import { BadgeModule } from 'primeng/badge';
 import { TagModule } from 'primeng/tag';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   imports: [
@@ -24,7 +25,9 @@ import { TagModule } from 'primeng/tag';
     AvatarGroupModule,
     DockModule,
     ToastModule,
-    TagModule
+    BadgeModule,
+    TagModule,
+    ProgressSpinnerModule
   ],
   exports: [
     RippleModule,
@@ -36,7 +39,9 @@ import { TagModule } from 'primeng/tag';
     AvatarGroupModule,
     DockModule,
     ToastModule,
-    TagModule
+    BadgeModule,
+    TagModule,
+    ProgressSpinnerModule
   ],
 })
 export class PrimeNGModule { }
