@@ -1,5 +1,3 @@
-
-
 <div class="splashBox">
   <div>
     <small>신나는</small><br>
@@ -7,30 +5,35 @@
   </div>
 </div>
 
-<div *ngIf="this.rId!=null;then trueRid else falseRid "></div>
+<p-toast position="top-center"></p-toast>
+
+<div *ngIf="this.rId!=null;then trueRid else falseRid"></div>
 <ng-template #trueRid>
-  <ion-header>
-    <ion-toolbar>
-      <div class="title"></div>
-      <div class="subTitle"></div>
-      <ion-grid *ngIf="qTitle==null">
-        <ion-row>
-          <ion-col size="6" class="ion-text-center">
-            <ion-button class="guideBtn" (click)="guideAction('jStart')">게임 시작!</ion-button>
-          </ion-col>
-          <ion-col size="6" class="ion-text-center">
-            <ion-button class="guideBtn" (click)="guideAction('guide')">도움말</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <ion-title class="qBox" #qBox>
-        <p class="fadeIn" *ngFor="let char of qTitle">{{char}}</p>
-      </ion-title>
+  <div class="topHeader">
+    <div class="title">
+      <img alt="logo" src="../../assets/images/jaum_app_icon.png" />
+      <p>방 이름 - {{rId}}</p>
+    </div>
+    <div class="menus">
+      <i pRipple class="pi pi-question" (click)="guideAction('guide');"></i>
+      <i pRipple class="pi pi-volume-up" *ngIf="isMute" (click)="mute();"></i>
+      <i pRipple class="pi pi-volume-off" *ngIf="!isMute" (click)="mute();"></i>
+      <i pRipple class="pi pi-times" (click)="exit();"></i>
+    </div>
+    <div class="userCnt">
+      <p-tag icon="pi pi-user" value="{{userCnt}}명"></p-tag>
+      <p-tag icon="pi pi-link" severity="warning" value="초대하기" (click)="kakaoShare();"></p-tag>
+    </div>
+  </div>
+  <div class="header" [ngClass]="qTitle==null ? 'animate animate-1s fadeOut' : 'animate animate-1s fadeIn'">
+    <div class="qBox" #qBox>
+      <p class="fadeIn" *ngFor="let char of qTitle">{{char}}</p>
       <small class="fadeIn">{{qSubject}}</small>
-    </ion-toolbar>
-    <div class="peopleCnt"><ion-icon name="people-outline"></ion-icon> {{userCnt}}명</div>
-  </ion-header>
+    </div>
+  </div>
+
   <ion-content scrollDownOnLoad="true">
+    <div class="background"></div>
     <div class="messageBoxBackground"></div>
     <div class="messageBox" *ngFor="let message of messages;">
       <ion-item class="guideChat" lines="none" *ngIf="message.guide">
@@ -47,8 +50,8 @@
         <ion-label>
           <h3>{{message.name}}</h3>
           <div class="left">
-            <ion-label class="rMsg incorrect" *ngIf="message.type=='incorrect'">땡!</ion-label>
-            <ion-label class="rMsg correct" *ngIf="message.type=='correct'">정답!</ion-label>
+            <span class="rMsg incorrect" *ngIf="message.type=='incorrect'">땡!</span>
+            <span class="rMsg correct" *ngIf="message.type=='correct'">정답!</span>
             {{message.text}}
           </div>
           <small>{{message.createdAt| date:"HH:mm"}}</small>
@@ -58,25 +61,20 @@
         <ion-thumbnail slot="start" *ngIf="!message.guide && !message.isMe">
           <img src="https://cdn.pixabay.com/photo/2018/05/26/18/06/dog-3431913_960_720.jpg">
         </ion-thumbnail>
-        <ion-label>          
+        <ion-label>
           <h3>{{message.name}}</h3>
           <small>{{message.createdAt| date:"HH:mm"}}</small>
           <div class="right">
-            <ion-label class="rMsg incorrect" *ngIf="message.type=='incorrect'">땡!</ion-label>
-            <ion-label class="rMsg correct" *ngIf="message.type=='correct'">정답!</ion-label>
+            <span class="rMsg incorrect" *ngIf="message.type=='incorrect'">땡!</span>
+            <span class="rMsg correct" *ngIf="message.type=='correct'">정답!</span>
             {{message.text}}
           </div>
         </ion-label>
       </ion-item>
     </div>
   </ion-content>
-  <ion-footer class="bar-frosted">
-    <!-- <div *ngIf="setting">
-      <ion-button (click)="guideAction('guide')">도움말</ion-button>
-    </div> -->
-    <ion-item>
-      <!-- <ion-icon name="chevron-down-circle-outline" *ngIf="setting" (click)="setting=false"></ion-icon>
-      <ion-icon name="chevron-up-circle-outline" *ngIf="!setting" (click)="setting=true"></ion-icon> -->
+  <ion-footer>
+    <ion-item class="box">
       <ion-input [(ngModel)]="inputMessage" placeholder="" (keyup.enter)="sendChat()" #chatInput></ion-input>
       <ion-button item-right color="primary" (click)="sendChat()">Send</ion-button>
     </ion-item>

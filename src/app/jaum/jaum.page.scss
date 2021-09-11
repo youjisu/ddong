@@ -1,17 +1,22 @@
 :host {
+    box-shadow: 0 0 10px #999;
     max-width: 600px;
     margin: auto;
-    box-shadow: 0 0 10px #999;
+    min-height: 80vh;
+    height: 100%;
 }
-.splashBox{    
+* {
+    font-family: "gamja flower", "gamja flower", sans-serif;
+}
+.splashBox {
     position: fixed;
     z-index: 999;
     width: 100%;
     height: 100%;
-    background: url('../../assets/images/jaum_background.png');
+    background: url("../../assets/images/jaum_background.png");
     visibility: hidden;
     animation: fadeOut 3s ease;
-    div{
+    div {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -21,73 +26,101 @@
         color: #fff;
     }
 }
-ion-header {
-    ion-toolbar {
-        --background: #fff;
-        height: 60px;
-        color: #000;
-    }
-    ion-title {
-        margin: 5px 0;
-        text-align: center;
-    }
+.topHeader {
+    background: #fff;
+    box-shadow: 0 0 5px #333;
+    z-index: 2;
     .title {
-        position: absolute;
-        left: 20px;
-        top: 23px;
-        font-size: 25px;
-        font-weight: bold;
-        color: #d1dfe8;
-    }
-    .subTitle {
-        position: absolute;
-        left: 20px;
-        top: 9px;
-        font-size: 15px;
-        font-weight: bold;
-        color: #d1dfe8;
-    }
-    small {
-        display: block;
-        text-align: center;
-        margin-bottom: 5px;
-    }
-    .qBox {
+        img {
+            float: left;
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+        }
         p {
-            border: 1px solid #aaa;
-            padding: 2px;
-            margin: 0 2px;
-            display: inline-block;
-            background: #fff;
+            float: left;
+            font-size: 20px;
+            margin: 9px 0 0 5px;
+            line-height: 1;
+            max-width: 400px;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            word-wrap: normal !important;
+            display: block;
         }
     }
-    .peopleCnt {
+    .menus {
         position: absolute;
-        bottom: -40px;
-        left: 5px;
-        font-size: 15px;
-        color: #333;
-        background: #fff;
-        padding: 5px;
-        border-radius: 5px;
-        box-shadow: 0 0 4px #999;
-        ion-icon {
+        top: 0;
+        right: 0;
+        margin: 7px 7px 0 0;
+        i {
+            width: 25px;
+            height: 25px;
+            margin: 5px 0 0 10px;
+            .p-ink {
+                background: rgba(256, 39, 176, 0.3);
+            }
+        }
+    }
+    .userCnt {
+        position: absolute;
+        top: 45px;
+        left: 3px;
+        p-tag{
+            margin-right: 5px;
+            cursor: pointer;
+        }
+    }
+}
+.header {
+    position: fixed;
+    top: 40px;
+    z-index: 3;
+    width: 100%;
+    min-height: 80px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.77);
+    box-shadow: 0 0 5px #333;
+    z-index: 2;
+
+    .qBox {
+        p {
             display: inline-block;
-            font-size: 20px;
-            margin-bottom: 1px;
-            vertical-align: middle;
+            padding: 2px;
+            margin: 5px 2px;
+            color: #000;
+            font-size: 30px;
+            box-shadow: 1px 1px 2px #999;
+        }
+        small {
+            display: block;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 18px;
+            color: #000;
         }
     }
 }
 ion-content {
-    --background: url('../../assets/images/jaum_background.png');
-    .messageBoxBackground{
+    .background {
         position: fixed;
         top: 0;
+        bottom: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        background: rgba(255,255,255,0.77);
+        background: url("../../assets/images/jaum_background.png");
+        filter: blur(5px);
+    }
+    .messageBoxBackground {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.77);
     }
     .messageBox {
         ion-item {
@@ -96,13 +129,16 @@ ion-content {
             --padding-start: 5px;
             --inner-padding-end: 5px;
             --background: rgba(43, 28, 28, 0);
+
             &.guideChat {
                 text-align: center;
+                margin: 0;
                 div {
-                    background: #555 !important;
-                    width: 100%;
+                    background: rgba(0, 0, 0, 0.3) !important;
+                    box-shadow: none !important;
                     color: #fff;
-                    margin-top: 3px;
+                    font-size: 16px;
+                    margin: 3px;
                 }
             }
             &.me {
@@ -150,11 +186,6 @@ ion-content {
     }
 }
 ion-footer {
-    div {
-        position: absolute;
-        top: -50px;
-        left: 5px;
-    }
     ion-item {
         --padding-start: 5px;
         --background: #fff;
@@ -163,9 +194,11 @@ ion-footer {
             color: #000;
             margin-right: 10px;
         }
+        &.box {
+            box-shadow: 0 0 3px #333;
+        }
     }
 }
-
 .guideBtn {
     width: 100%;
     --background: #555;
@@ -180,7 +213,7 @@ ion-footer {
     font-size: 20px;
     font-weight: bold;
     text-align: center;
-    animation: up 2s ease-out;
+    animation: up 3s ease-out;
 
     &.incorrect {
         color: #f00;
@@ -217,5 +250,15 @@ ion-footer {
     100% {
         visibility: hidden;
         opacity: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .topHeader {
+        .title {
+            p {
+                max-width: 250px !important;
+            }
+        }
     }
 }

@@ -34,18 +34,66 @@
     font-family: "gamja flower", "gamja flower", sans-serif;
 }
 i {
-    font-family: "primeicons";
+    font-family: "primeicons" !important;
 }
-ion-router-outlet > .ion-page {
-    animation: fadeIn 0.3s;    
+
+.animate.fadeOut {
+    animation: fadeout 0.5s;
+    animation-fill-mode: forwards;
 }
+.animate.fadeIn {
+    animation: fadeIn 0.5s;
+    animation-fill-mode: forwards;
+}
+.animate-1s{
+    animation-duration: 1s;
+}
+
 @keyframes fadeIn {
-    0% {
+    from {
         opacity: 0;
-        // transform: translate3d(0, 5vh, 0);
+        visibility: hidden;
     }
-    100% {
+    to {
         opacity: 1;
-        // transform: translate3d(0, 0, 0);
+    }
+}
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+@-moz-keyframes fadeout {
+    /* Firefox */
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+@-webkit-keyframes fadeout {
+    /* Safari and Chrome */
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+@-o-keyframes fadeout {
+    /* Opera */
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
     }
 }

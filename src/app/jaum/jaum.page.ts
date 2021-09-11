@@ -1,27 +1,29 @@
-import { normalizeGenFileSuffix } from '@angular/compiler/src/aot/util';
+import * as firebase from 'firebase';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonContent, ToastController } from '@ionic/angular';
-import * as firebase from 'firebase';
+import { IonContent } from '@ionic/angular';
 import { MessageService } from 'primeng/api';
 import { Func } from '../../func';
 import { ApiHttpService } from '../api-http.service';
+declare let Kakao: any;
 
 @Component({
   selector: 'app-jaum',
   templateUrl: './jaum.page.html',
   styleUrls: ['./jaum.page.scss'],
+  providers: [MessageService]
 })
 export class JaumPage implements OnInit {
 
-  public db = firebase.default.database();
-  public rId = null;
-  public setting = true;
-  public messages = new Array();
-  public inputMessage = '';
-  public limitCnt = 0;
-  public lastChatTime = 0;
-  public isStart = false;
+  private db = firebase.default.database();
+  private rId = null;
+  private isMute = true;
+  private subMenu = [];
+  private messages = new Array();
+  private inputMessage = '';
+  private limitCnt = 0;
+  private lastChatTime = 0;
+  private isStart = false;
   private delayStart = false;
   private rTitle = false;
   private userCnt = 0;
@@ -29,7 +31,8 @@ export class JaumPage implements OnInit {
   private qResult = null;
   private qSubject = null;
 
-  public audio = null;
+  public backgroundAudio = null;
+  public soundAudio = null;
 
   @ViewChild(IonContent, { read: IonContent, static: false }) myContent: IonContent;
   @ViewChild('chatInput', { static: false }) chatInput: { setFocus: () => void; };
@@ -37,9 +40,11 @@ export class JaumPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private messageService: MessageService,
-    private router: Router,
-    private http: ApiHttpService
+    private http: ApiHttpService,
+    public router: Router
   ) {
+    Kakao.init('331b61f85ecddd45862bd73350ff4638');
+
     this.activatedRoute.queryParams.subscribe(params => {
       this.rId = params['rId'];
 
@@ -52,7 +57,7 @@ export class JaumPage implements OnInit {
       });
 
       // 유저 수
-      this.db.ref('rooms/' + this.rId + '/jaum/users').on('child_added', async () => {
+      this.db.ref('rooms/' + this.rId + '/jaum/users').limitToLast(1).on('child_added', async (snapshot) => {
         const userList = (await this.db.ref('rooms/' + this.rId + '/jaum/users').once('value')).val();
         this.userCnt = Object.values(userList).length;
         this.playAudio('join');
@@ -91,29 +96,44 @@ export class JaumPage implements OnInit {
   }
 
   ngOnInit() {
-    this.delay();
+    this.backgroundAudio = new Audio();
+    this.backgroundAudio.autoplay = true;
+    this.backgroundAudio.src = '../../assets/sounds/background.mp3';
+    this.backgroundAudio.volume = 0.3;
+    this.backgroundAudio.loop = true;
+    this.backgroundAudio.load();
+    this.backgroundAudio.play();
 
     window.addEventListener('visibilitychange', () => {
-      if (this.audio) {
-        this.audio.pause();
-        this.audio = null;
-      }
+      this.backgroundAudio.pause();
+      this.isMute = false;
+    });
+
+    window.addEventListener('keyboardWillHide', () => {
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
     });
   }
 
-  ngOnDestroy() {
-    // destroy audio here
-    if (this.audio) {
-      this.audio.pause();
-      this.audio = null;
+  mute() {
+    if (this.isMute) {
+      this.backgroundAudio.pause();
     }
+    else {
+      this.backgroundAudio.load();
+      this.backgroundAudio.play();
+    }
+    this.isMute = !this.isMute;
   }
 
-  delay() {
-    setTimeout(() => {
-      this.delayStart = true;
-      this.playAudio('background');
-    }, 3000);
+  exit() {
+    // this.router.navigateByUrl('/tabs/tab1');
+    window.location.href = '/tabs/tab1';
+  }
+
+  ngOnDestroy() {
+    this.backgroundAudio.pause();
+    this.isMute = false;
   }
 
   setFocusOnInput() {
@@ -132,22 +152,30 @@ export class JaumPage implements OnInit {
       }
       else {
         if (this.inputMessage.indexOf('자음게임') == 0 || this.inputMessage.indexOf('모음게임') == 0) {
-          const gType = this.inputMessage == '자음게임' ? 0 : 1;
+          const gType = this.inputMessage.indexOf('자음게임') > -1 ? 0 : (this.inputMessage.indexOf('모음게임') > -1 ? 1 : -1);
+          const param = gType == 0 ? this.inputMessage.split('자음게임')[1].trim() : (gType == 1 ? this.inputMessage.split('모음게임')[1].trim() : '');
           this.pushMessage('normal', this.inputMessage);
+          if (gType == -1) return;
+
           (async () => {
             if ((await this.db.ref('rooms/' + this.rId + '/jaum/isStart').once('value')).val() == true) {
               this.guideChat(['진행중인 게임이 있습니다', '정답을 맞추거나 포기해야 합니다']);
             }
             else {
               this.db.ref('rooms/' + this.rId + '/jaum/').update({ isStart: true });
-              const result = (await this.http.jaum.get({ code: '' }));
+              const result = (await this.http.jaum.get({ code: param }));
               this.db.ref('rooms/' + this.rId + '/jaum/result').push({
-                value: Func.split_hangul(result.payload.data, gType),
-                result: result.payload.data,
+                value: Func.split_hangul(Func.aesDecrypt(result.payload.result), gType),
+                result: Func.aesDecrypt(result.payload.result),
                 subject: result.payload.subject
               });
               this.db.ref('rooms/' + this.rId + '/jaum/messages/').push({
                 text: ['게임이 시작되었습니다!'],
+                guide: true,
+                createdAt: Date.now()
+              });
+              this.db.ref('rooms/' + this.rId + '/jaum/messages/').push({
+                text: ['[' + result.payload.subject + '] ' + Func.split_hangul(result.payload.data, gType)],
                 guide: true,
                 createdAt: Date.now()
               });
@@ -158,7 +186,7 @@ export class JaumPage implements OnInit {
           const rResult = this.inputMessage.split('정답 ')[1];
           (async () => {
             const tResult = Object.values((await this.db.ref('rooms/' + this.rId + '/jaum/result/').once('value')).val())[0]['result'];
-            if (rResult == tResult) {
+            if (rResult.replace(/ /g, '') == tResult.replace(/ /g, '')) {
               this.pushMessage('correct', '정답 ' + tResult);
               this.db.ref('rooms/' + this.rId + '/jaum/messages/').push({
                 text: [tResult + ' - 정답입니다!'],
@@ -175,21 +203,43 @@ export class JaumPage implements OnInit {
             }
           })();
         }
-        else if (this.inputMessage == '포기' && this.qResult != null) {
+        else if (this.inputMessage == '포기') {
           this.pushMessage('normal', this.inputMessage);
-          this.db.ref('rooms/' + this.rId + '/jaum/messages/').push({
-            text: [Func.makeName(localStorage.uId) + '- 포기하였습니다!'],
-            guide: true,
-            createdAt: Date.now()
-          });
-          this.db.ref('rooms/' + this.rId + '/jaum/').update({
-            isStart: false,
-            result: null
-          });
+          (async () => {
+            let tResult = null;
+            try {
+              tResult = Object.values((await this.db.ref('rooms/' + this.rId + '/jaum/result/').once('value')).val())[0]['result'];
+            }
+            catch (e) {
+              this.db.ref('rooms/' + this.rId + '/jaum/').update({
+                isStart: false,
+                result: null
+              });
+            }
+
+            if (this.qResult != null && tResult != null) {
+              // this.db.ref('rooms/' + this.rId + '/jaum/messages/').push({
+              //   text: [Func.makeName(localStorage.uId) + '님이 포기하였습니다!'],
+              //   guide: true,
+              //   createdAt: Date.now()
+              // });
+              this.db.ref('rooms/' + this.rId + '/jaum/messages/').push({
+                text: ['정답은 ' + this.qResult.join('') + ' 입니다!'],
+                guide: true,
+                createdAt: Date.now()
+              });
+              this.db.ref('rooms/' + this.rId + '/jaum/').update({
+                isStart: false,
+                result: null
+              });
+            }
+
+          })();
         }
         else if (this.inputMessage == '도움말') {
           this.pushMessage('normal', this.inputMessage);
-          this.guideChat(['[게임시작] 자음게임, 모음게임, 자작게임 [정답] [주제]', '[정답입력] 정답 XXXX', '[게임포기] 포기']);
+          this.guideChat(['[게임시작] 자음게임 [주제], 모음게임 [주제]']);
+          this.guideChat(['[정답입력] 정답 XXXX', '[게임포기] 포기']);
         }
         else {
           this.pushMessage('normal', this.inputMessage);
@@ -261,7 +311,7 @@ export class JaumPage implements OnInit {
   }
 
   addSingle() {
-    // this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Via MessageService' });
+    this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Via MessageService' });
   }
   // async toastBox(value) {
   //   const toast = await this.toastController.create({
@@ -284,33 +334,43 @@ export class JaumPage implements OnInit {
   }
 
   playAudio(type) {
-    if (this.delayStart) {
-      this.audio = new Audio();
-      this.audio.autoplay = true;
+    if (this.isMute) {
+      this.soundAudio = new Audio();
+      this.soundAudio.autoplay = true;
       switch (type) {
         case 'chat':
-          this.audio.src = '../../assets/sounds/chat.mp3';
+          this.soundAudio.src = '../../assets/sounds/chat.mp3';
           break;
         case 'join':
-          this.audio.src = '../../assets/sounds/join.mp3';
+          this.soundAudio.src = '../../assets/sounds/join.mp3';
           break;
         case 'success':
-          this.audio.src = '../../assets/sounds/success.mp3';
+          this.soundAudio.src = '../../assets/sounds/success.mp3';
           break;
         case 'fail':
-          this.audio.src = '../../assets/sounds/fail.mp3';
+          this.soundAudio.src = '../../assets/sounds/fail.mp3';
           break;
         case 'action':
-          this.audio.src = '../../assets/sounds/action.mp3';
-          break;
-        case 'background':
-          this.audio.src = '../../assets/sounds/background.mp3';
-          this.audio.volume = 0.3;
-          this.audio.loop = true;
+          this.soundAudio.src = '../../assets/sounds/action.mp3';
           break;
       }
-      this.audio.load();
-      this.audio.play();
+      this.soundAudio.load();
+      this.soundAudio.play();
     }
+  }
+
+  kakaoShare() {
+    Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '나랑.. 같이.. 자음게임 할래?',
+        description: '#자음게임 #모음게임 #초성게임 #순발력 #뇌지컬',
+        imageUrl: 'https://ddong-b30bf.web.app/assets/images/jaum_app_icon.png',
+        link: {
+          webUrl: location.href,
+          mobileWebUrl: location.href,
+        }
+      }
+    });
   }
 }

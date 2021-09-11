@@ -13,6 +13,7 @@ import { ToastModule } from 'primeng/toast';
 import { BadgeModule } from 'primeng/badge';
 import { TagModule } from 'primeng/tag';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ToastModule,
     BadgeModule,
     TagModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ToggleButtonModule
   ],
   exports: [
     RippleModule,
@@ -41,7 +43,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ToastModule,
     BadgeModule,
     TagModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ToggleButtonModule
   ],
 })
 export class PrimeNGModule { }
